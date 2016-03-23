@@ -4,9 +4,9 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
 	public float speed;
-	public float jumppower = 20;
+	public float jumppower;
 	private Rigidbody rb;
-	private bool isOnGround = true;
+	public bool isOnGround = true;
 
 	void Start()
 	{
@@ -16,24 +16,22 @@ public class PlayerController : MonoBehaviour {
 	void FixedUpdate () 
 	{
 		float moveHorizontal = Input.GetAxis ("Horizontal");
-		float moveVertical = Input.GetAxis ("Vertical");
 
-		Vector3 movement = new Vector3 (moveHorizontal, moveVertical, 0.0f);
+		Vector3 movement = new Vector3 (moveHorizontal, 0.0f, 0.0f);
 
 		rb.AddForce (movement * speed);
 
-		/*
-		if (!isOnGround && rb.velocity.y == 0) 
+		if (rb.velocity.y == 0 && !isOnGround) 
 		{
 			isOnGround = true;
 		}
 
 		if (Input.GetKeyDown (KeyCode.Space) && isOnGround) 
 		{
-			rb.AddForce (transform.up * jumppower);
+			rb.AddForce (0.0f, jumppower, 0.0f);
 			isOnGround = false;
 		}
-		*/
+
 	}
 
 	void OnTriggerEnter(Collider other) 
